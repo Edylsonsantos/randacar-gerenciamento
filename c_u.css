@@ -1,0 +1,292 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+    border-radius: 2px!important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    justify-items: center;
+    border-radius: 0!important;
+    max-width: 1000px;
+    margin:  20px auto;
+}
+.underline-animation i{
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    max-width: 40px;
+    height: 40px;
+    padding: 10px;
+    text-align: left;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3357FF, #9B33FF);
+    margin: 0 auto;
+}
+h1 {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #3f51b5;
+    display: flex;
+    text-transform: uppercase;
+    text-align: left!important;
+    font-family: 'roboto', sans-serif;
+    margin-top: 20px;
+    margin-bottom: 40px;/* Cor primária do Material Design */
+}
+h1 {
+    position: relative;
+    display: flex;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background-color: #3f51b5;
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+    border-bottom: 2px solid #3357FF;
+    align-items: center;
+}
+
+.underline-animation.start::after {
+    transform: scaleX(1); /* Animação para 100% quando a classe 'start' for adicionada */
+}
+
+form {
+    background: white;
+    border-radius: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+select {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 0;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    background-color: transparent;
+    font-family: "roboto", sans-serif;
+}
+.prefixo{
+    width: 70px;
+    padding: 10px;
+    outline: none;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    font-size: 16px;
+    font-family: "roboto", sans-serif;
+    padding: 10px;
+}
+/* Remover as setas no Firefox */
+input[type="number"]::-moz-inner-spin-button,
+input[type="number"]::-moz-spin-button {
+    -moz-appearance: none;
+}
+
+/* Remover as setas no Chrome, Safari, e Edge */
+input[type="number"] {
+    -webkit-appearance: none; /* Para Chrome e Safari */
+    -moz-appearance: textfield; /* Para Firefox */
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus {
+    border-bottom: 3px solid #303f9f;
+}
+.btn{
+    display: flex;
+    justify-content: space-between;
+}
+.btn a{
+    color: #303f9f;
+    text-align: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+button {
+    background-color: #3f51b5; /* Cor primária */
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+button:hover {
+    background-color: #303f9f; /* Cor primária ao passar o mouse */
+}
+
+.alert {
+    background-color: #f44336; /* Vermelho */
+    color: white;
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.success {
+    background-color: #4CAF50; /* Verde */
+}
+
+/* Estilo para a lista de cartões (menu) */
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+    padding: 15px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    button {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 5px; 
+}
+.card {
+    background-color: #3f51b5;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 0;
+    padding: 10px; 
+    width: calc(50% - 10px); 
+    height: 130px;
+    text-align: center; 
+    display: flex;
+    border-radius: 4px;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    transition: transform 0.2s; 
+    font-size: 14px; 
+    font-family: "Roboto", sans-serif; 
+}
+.card h2{
+    font-size: 15px;
+    margin-top: 15px;
+    font-family: "roboto", sans-serif;
+}
+.card-1 {
+    background: linear-gradient(135deg, #FF5733, #FFBD33); /* Card 1 */
+}
+.card-2 {
+    background: linear-gradient(135deg, #33FF57, #33BDFF); /* Card 2 */
+}
+.card-3 {
+    background: linear-gradient(135deg, #3357FF, #9B33FF); /* Card 3 */
+}
+.card-4 {
+    background: linear-gradient(135deg, #FF33B8, #FF33C4); /* Card 4 */
+}
+.card-5 {
+    background: linear-gradient(135deg, #FF8433, #FFC133); /* Card 5 */
+}
+.card i{
+    margin-top: 10px;
+    font-size: 30px;
+}
+
+        /* Estilo do modal */
+        .modal {
+            display: none; /* Oculta o modal por padrão */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            bottom: 20px;
+            margin: 20px;
+        }
+
+        .modal-content i {
+            font-size: 50px; /* Tamanho do ícone */
+            color: #303f9f; /* Cor verde para o ícone */
+            margin-bottom: 10px; /* Espaço abaixo do ícone */
+        }
+
+        .modal-content p {
+            font-size: 14px;
+            text-transform: uppercase; /* Tamanho do texto */
+            margin: 0;
+        }

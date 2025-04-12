@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Viaturas - Quelimane</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXziIbU_msVXwoHlXC8yOeHrdwsZTmD2E"></script>
+    <style>
+        body{
+            max-width: 1000px;
+            margin:  20px auto;
+        }
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestão de Localização de Viaturas - Quelimane</h1>
+
+    <!-- Formulário de Cadastro de Viaturas -->
+    <h2>Cadastrar Viatura</h2>
+    <form id="cadastroForm">
+        <div class="form-group">
+            <label for="placa">Placa:</label>
+            <input type="text" id="placa" required>
+        </div>
+        <div class="form-group">
+            <label for="nomeViatura">Nome da Viatura:</label>
+            <input type="text" id="nomeViatura" required>
+        </div>
+        <div class="form-group">
+            <label for="proprietario">Nome do Proprietário:</label>
+            <input type="text" id="proprietario" required>
+        </div>
+        <div class="form-group">
+            <label for="empresa">Nome da Empresa:</label>
+            <input type="text" id="empresa" required>
+        </div>
+        <button type="submit">Cadastrar Viatura</button>
+    </form>
+
+    <!-- Formulário para Adicionar Paragem -->
+    <h2><i class="bx bx-car"></i> Adicionar Paragem</h2>
+    <form id="paragemForm">
+        <div class="form-group">
+            <label for="placaParagem">Placa da Viatura:</label>
+            <input type="text" id="placaParagem" required>
+        </div>
+        <div class="form-group">
+            <label for="dataParagem">Data e Hora da Paragem:</label>
+            <input type="datetime-local" id="dataParagem" required>
+        </div>
+        <div class="form-group">
+            <label for="latitude">Latitude:</label>
+            <input type="text" id="latitude" readonly>
+        </div>
+        <div class="form-group">
+            <label for="longitude">Longitude:</label>
+            <input type="text" id="longitude" readonly>
+        </div>
+        <button type="submit">Adicionar Paragem</button>
+    </form>
+
+    <!-- Formulário de Pesquisa -->
+    <h2>Pesquisar Viatura</h2>
+    <form id="pesquisaForm">
+        <div class="form-group">
+            <label for="pesquisaPlaca">Pesquisar por Placa:</label>
+            <input type="text" id="pesquisaPlaca">
+        </div>
+        <div class="form-group">
+            <label for="pesquisaEmpresa">Pesquisar por Empresa:</label>
+            <input type="text" id="pesquisaEmpresa">
+        </div>
+        <button type="submit">Pesquisar</button>
+    </form>
+
+    <!-- Mapa -->
+    <div id="map"></div>
+
+    <script>
+        // Inicializa o mapa
+        function initMap() {
+            var quelimane = { lat: -17.878388, lng: 36.888273 };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: quelimane
+            });
+
+            // Evento de clique para capturar a localização
+            map.addListener('click', function(e) {
+                document.getElementById('latitude').value = e.latLng.lat();
+                document.getElementById('longitude').value = e.latLng.lng();
+            });
+
+            return map;
+        }
+
+        let map = initMap();
+
+        // Função para salvar viaturas no localStorage
+        function salvarViatura(viatura) {
+            let viaturas = JSON.parse(localStorage.getItem('viaturas')) || [];
+            viaturas.push(viatura);
+            localStorage.setItem('viaturas', JSON.stringify(viaturas));
+        }
+
+        // Função para adicionar paragens no histórico de uma viatura
+        function adicionarParagem(placa, paragem) {
+            let viaturas = JSON.parse(localStorage.getItem('viaturas')) || [];
+            let viatura = viaturas.find(v => v.placa === placa);
+
+            if (viatura) {
+                viatura.historico.push(paragem);
+                localStorage.setItem('viaturas', JSON.stringify(viaturas));
+            } else {
+                alert('Viatura não encontrada!');
+            }
+        }
+
+        // Evento para cadastrar viatura
+        document.getElementById('cadastroForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            let viatura = {
+                placa: document.getElementById('placa').value,
+                nomeViatura: document.getElementById('nomeViatura').value,
+                proprietario: document.getElementById('proprietario').value,
+                empresa: document.getElementById('empresa').value,
+                historico: []
+            };
+
+            salvarViatura(viatura);
+            alert('Viatura cadastrada com sucesso!');
+        });
+
+        // Evento para adicionar paragem
+        document.getElementById('paragemForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            let placa = document.getElementById('placaParagem').value;
+            let paragem = {
+                data: document.getElementById('dataParagem').value,
+                latitude: document.getElementById('latitude').value,
+                longitude: document.getElementById('longitude').value
+            };
+
+            adicionarParagem(placa, paragem);
+            alert('Paragem adicionada com sucesso!');
+        });
+
+        // Evento para pesquisar viatura
+        document.getElementById('pesquisaForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            let placa = document.getElementById('pesquisaPlaca').value;
+            let empresa = document.getElementById('pesquisaEmpresa').value;
+
+            let pesquisaParams = placa ? `placa=${placa}` : `empresa=${empresa}`;
+            window.location.href = `pesquisa.HTML?${pesquisaParams}`;
+        });
+    </script>
+</body>
+</html>
